@@ -207,6 +207,22 @@ func (session *Session) StartTimeEntryForProject(description string, projectID i
 	return timeEntryRequest(respData, err)
 }
 
+// CreateTimeEntry creates a new time entry based on a project, task, start time, end time, and description.
+func (session *Session) CreateTimeEntry(pid, tid int, start, end time.Time, description string) (TimeEntry, error) {
+	dlog.Printf("Creating Time entry for pid %d, tid %d from %v - %v, with description %v", pid, tid, start, end, description)
+	data := map[string]interface{}{
+		"time_entry": map[string]interface{}{
+			"description":  description,
+			"start":        start,
+			"end":          end,
+			"created_with": AppName,
+			"pid":          pid,
+			"tid":          tid,
+		}}
+	respData, err := session.post(TogglAPI, "/time_entries", data)
+	return timeEntryRequest(respData, err)
+}
+
 // UpdateTimeEntry changes information about an existing time entry.
 func (session *Session) UpdateTimeEntry(timer TimeEntry) (TimeEntry, error) {
 	dlog.Printf("Updating timer %v", timer)
@@ -747,7 +763,7 @@ func timeEntryRequest(data []byte, err error) (TimeEntry, error) {
 	return entry.Data, nil
 }
 
-// DisableLog disables output to stderr
+// DisableLog disables output to stderq
 func DisableLog() {
 	dlog.SetFlags(0)
 	dlog.SetOutput(ioutil.Discard)
