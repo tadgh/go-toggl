@@ -217,7 +217,6 @@ func (session *Session) CreateTimeEntry(pid, tid int, start, end time.Time, desc
 			"end":          end,
 			"created_with": AppName,
 			"pid":          pid,
-			"tid":          tid,
 		}}
 	respData, err := session.post(TogglAPI, "/time_entries", data)
 	return timeEntryRequest(respData, err)
