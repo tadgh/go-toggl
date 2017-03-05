@@ -214,7 +214,7 @@ func (session *Session) CreateTimeEntry(pid, tid int, start, end time.Time, desc
 		"time_entry": map[string]interface{}{
 			"description":  description,
 			"start":        start,
-			"end":          end,
+			"duration":     1200,
 			"created_with": AppName,
 			"pid":          pid,
 		}}
