@@ -208,13 +208,13 @@ func (session *Session) StartTimeEntryForProject(description string, projectID i
 }
 
 // CreateTimeEntry creates a new time entry based on a project, task, start time, end time, and description.
-func (session *Session) CreateTimeEntry(pid, tid int, start, end time.Time, description string) (TimeEntry, error) {
-	dlog.Printf("Creating Time entry for pid %d, tid %d from %v - %v, with description %v", pid, tid, start, end, description)
+func (session *Session) CreateTimeEntry(pid, tid int, start time.Time, duration time.Duration, description string) (TimeEntry, error) {
+	dlog.Printf("Creating Time entry for pid %d, tid %d from %v - %v, with description %v", pid, tid, start, duration, description)
 	data := map[string]interface{}{
 		"time_entry": map[string]interface{}{
 			"description":  description,
 			"start":        start,
-			"duration":     1200,
+			"duration":     duration.Seconds(),
 			"created_with": AppName,
 			"pid":          pid,
 		}}
