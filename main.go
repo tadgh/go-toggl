@@ -222,6 +222,12 @@ func (session *Session) CreateTimeEntry(pid, tid int, start time.Time, duration 
 	return timeEntryRequest(respData, err)
 }
 
+// GetActiveTimeEntry fetches the currently running time entry from toggl.
+func (session *Session) GetActiveTimeEntry() (TimeEntry, error) {
+	data, err := session.get(TogglAPI, "time_entries/current", nil)
+	return timeEntryRequest(data, err)
+}
+
 // UpdateTimeEntry changes information about an existing time entry.
 func (session *Session) UpdateTimeEntry(timer TimeEntry) (TimeEntry, error) {
 	dlog.Printf("Updating timer %v", timer)
