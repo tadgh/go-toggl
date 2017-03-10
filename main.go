@@ -224,7 +224,7 @@ func (session *Session) CreateTimeEntry(pid, tid int, start time.Time, duration 
 
 // GetActiveTimeEntry fetches the currently running time entry from toggl.
 func (session *Session) GetActiveTimeEntry() (TimeEntry, error) {
-	data, err := session.get(TogglAPI, "time_entries/current", nil)
+	data, err := session.get(TogglAPI, "/time_entries/current", nil)
 	return timeEntryRequest(data, err)
 }
 
