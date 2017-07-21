@@ -167,6 +167,7 @@ func (session *Session) GetSummaryReport(workspace int, since, until string) (Su
 	params := map[string]string{
 		"user_agent":   "jc-toggl",
 		"grouping":     "projects",
+		"subgrouping":	"users",
 		"since":        since,
 		"until":        until,
 		"rounding":     "on",
